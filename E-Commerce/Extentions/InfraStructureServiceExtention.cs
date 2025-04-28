@@ -21,6 +21,7 @@ namespace E_Commerce.Extentions
             Services.AddScoped<IDbInitializer, DbInitializer>();
             Services.AddScoped<IUnitOfWork, UnitOfWork>();
             Services.AddScoped<IBasketRepository, BasketRepository>();
+            Services.AddScoped<ICachRepositiory, CachRepositiory>();
             Services.AddDbContext<StoreContext>((options) =>
             {
                 options.UseSqlServer( configuration.GetConnectionString("DefaultConnection"));
@@ -30,7 +31,7 @@ namespace E_Commerce.Extentions
                 options.UseSqlServer(configuration.GetConnectionString("IdentityConnection"));
             });
             Services.AddSingleton<IConnectionMultiplexer>(
-              _ => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")));
+              _ => ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")!));
             Services.ConfigrationIdentityService();
             Services.ConfigureJwt(configuration);
 			//return
